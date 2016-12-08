@@ -50,7 +50,10 @@ RSpec.describe GramsController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
       
-      post :create, gram: {message: 'hello!'}
+      post :create, gram: {
+        message: 'hello!',
+        picture: fixture_file_upload("/picture.jpg", 'image/jpg')
+      }
       expect(response).to redirect_to root_path
 
       gram = Gram.last
@@ -155,7 +158,7 @@ RSpec.describe GramsController, type: :controller do
       delete :destroy, id: gram.id
       expect(response).to have_http_status(:forbidden)
     end
-    
+
     it "shouldn't let unauthenticated users destroy a gram" do
       gram = FactoryGirl.create(:gram)
       delete :destroy, id: gram.id
