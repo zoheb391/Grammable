@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   root 'grams#index'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  resources :grams
-  resources :comments
+  resources :grams do
+    resources :comments, only: :create
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
